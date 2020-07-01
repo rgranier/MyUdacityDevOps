@@ -2,6 +2,9 @@ Description: >
   Randall Granier / Udacity Course
   Lesson 3:  Networking Infrastructure
   Build it with the video
+  ./create.sh lesson3networkstack mynetwork.yml mynetworkparams.json
+  ./update.sh lesson3networkstack mynetwork.yml mynetworkparams.json
+
 
 Parameters:
   EnvironmentName:
