@@ -1,0 +1,36 @@
+Description: >
+      Randall Granier / Udacity Course
+      https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html
+      ./create.sh lesson3serverstack myservers.yml myserverparams.json
+      ./update.sh lesson3serverstack myservers.yml myserverparams.json
+
+Parameters:
+
+    EnvironmentName:
+        Description: Single parameter that we are passing with the env name.
+        Type: String
+
+Resources:
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: "ami-79fd7eee"
+      KeyName: "testkey"
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sdm"
+        Ebs:
+          VolumeType: "io1"
+          Iops: "200"
+          DeleteOnTermination: "false"
+          VolumeSize: "20"
+      - DeviceName: "/dev/sdk"
+        NoDevice: {}
+
+
+Outputs:
+  URL:
+    Description: Reference to the DNS name for the LB
+    Value: !Join ["", ["http://", !GetAtt WebAppLB.DNSName]]
+    Export:
+      Name: !Sub ${EnvironmentName}-URL
